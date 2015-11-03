@@ -1,0 +1,31 @@
+{
+  "name": "ngDatePicker",
+  "version": "1.0.0",
+  "description": "Responsive AngularJS DatePicker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "datepicker",
+    "angular",
+    "responsive"
+  ],
+  "author": "Triadi Prabowo",
+  "license": "MIT",
+  "devDependencies": {
+    "connect-modrewrite": "^0.8.2",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.0.0",
+    "gulp-size": "^2.0.0",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.5",
+    "gulp-webpack": "^1.5.0",
+    "webpack": "^1.12.2"
+  }
+}
