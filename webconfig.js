@@ -3,10 +3,10 @@ var webpack = require('webpack');
 
 // Define main module
 var main = {
-	module: './src/js/main.js',
+	module: './src/main.js',
 	output: {
 		path: __dirname,
-		fn: 'main.js'
+		filename: 'main.js'
 	}
 }
 

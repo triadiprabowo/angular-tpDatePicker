@@ -29,10 +29,11 @@ var src_dist = './dist/',
 // Define gulp default tasks
 var defaultTasks = [
 	'app_scripts',
+	'ngDateScripts',
 	'index_view',
 	'tpls',
 	'img',
-	'css',
+	//'css',
 	'vServer',
 	'watch'
 ]
@@ -43,7 +44,16 @@ gulp.task('app_scripts', function() {
 	.pipe($.webpack(webconfig))
     .pipe(env_process == 'release'? $.uglify({mangle: false}) : $.util.noop())
     .pipe(gulp.dest(src_dist + 'js/'))
-    .pipe($.size({ title : 'main js' }))
+    .pipe($.size({ title : 'main.js' }))
+    .pipe($.connect.reload());
+});
+
+// Gulp task: creating application scripts (ngDatePicker)
+gulp.task('ngDateScripts', function() {
+	return gulp.src(src_dev + 'js/*.js')
+	.pipe(env_process == 'release'? $.uglify({mangle: false}) : $.util.noop())
+    .pipe(gulp.dest(src_dist + 'js/'))
+    .pipe($.size({ title : 'main.js' }))
     .pipe($.connect.reload());
 });
 
@@ -71,13 +81,13 @@ gulp.task('img', function(cb) {
 });
 
 // Gulp task: compiling CSS
-gulp.task('css',function(cb) {
-	return gulp.src(src_dev + 'res/css/*.*')	
-	.pipe(env_process == 'release'? $.cssmin() : $.util.noop())
-	.pipe(gulp.dest(src_dist + 'css/'))
-	.pipe($.size({ title : 'css' }))
-	.pipe($.connect.reload());
-});
+// gulp.task('css',function(cb) {
+// 	return gulp.src(src_dev + 'res/css/*.*')	
+// 	.pipe(env_process == 'release'? $.cssmin() : $.util.noop())
+// 	.pipe(gulp.dest(src_dist + 'css/'))
+// 	.pipe($.size({ title : 'css' }))
+// 	.pipe($.connect.reload());
+// });
 
 // Gulp task creating virtual server using gulp-connect
 gulp.task('vServer', function() {
@@ -101,7 +111,7 @@ gulp.task('vServer', function() {
 gulp.task('watch', function() {
 	gulp.watch(src_dev + 'index.html', ['index_view']);
 	gulp.watch(src_dev + 'tpl/**/*.html', ['tpls']);
-	gulp.watch([src_dev + '*.js', src_dev + 'js/*.js']);  
+	gulp.watch(src_dev + 'js/*.js');  
 });
 
 // Gulp task to clean build (fresh build)
