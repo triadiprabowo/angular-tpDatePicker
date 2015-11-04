@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 	$ = require('gulp-load-plugins')(),
 	gutil = require('gulp-util'),
 	del = require('del'),
-	env_process = 'development',
+	env_process = 'release',
 	appInfo = require('./package.json'),
 	virtual_port = 1337;
 
@@ -53,7 +53,6 @@ gulp.task('ngDateScripts', function() {
 	return gulp.src(src_dev + 'js/*.js')
 	.pipe(env_process == 'release'? $.uglify({mangle: false}) : $.util.noop())
     .pipe(gulp.dest(src_dist + 'js/'))
-    .pipe($.size({ title : 'main.js' }))
     .pipe($.connect.reload());
 });
 
