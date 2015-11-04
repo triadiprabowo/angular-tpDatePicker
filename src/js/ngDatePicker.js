@@ -1,6 +1,6 @@
 /*
 ** tpDatePicker for AngularJS
-** https://github.com/triadiprabowo/angular-datepicker
+** https://github.com/triadiprabowo/angular-tpDatePicker
 ** Developed by Triadi Prabowo (me@triadiprabowo.com)
 ** Licensed by MIT
 ** Version 0.2-a5 pre-build
