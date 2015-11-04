@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
-#tpDatePicker {
+.tpDatePicker-wrapper {
+	position: relative;
+	display: inline-block;
+}
+
+.tpDatePicker {
 	font-family: sans-serif;
 	background: #EDEDED;
 	border-collapse: collapse;
@@ -9,27 +14,29 @@
 	-moz-box-shadow: 1px 2px 1px 1px rgba(0,0,0,.150);
 	box-shadow: 1px 2px 1px 1px rgba(0,0,0,.150);
 	display: none;
+	position: absolute;
+	z-index: 9000;
 }
 
-#tpDateHead {		
+.tpDateHead {		
 	background: #EAEAEA;
 	border: none;	
 }
 
-#tpDateHead tr:first-child {
+.tpDateHead tr:first-child {
 	background: linear-gradient(#f2f2f2, #e2e2e2);
 }
 
-#tpDateHead > tr:first-child > th {		
+.tpDateHead > tr:first-child > th {		
 	padding: 9px;	
 }
 
-#tpDateHead tr:nth-child(2) {
+.tpDateHead tr:nth-child(2) {
 	background: linear-gradient(#E2E2E2, #D8D8D8);
 	border: none;	
 }
 
-#tpDateHead tr:nth-child(2) th {
+.tpDateHead tr:nth-child(2) th {
 	font-size: 14px;
 	padding: 7px;
 	color: #333;
@@ -39,7 +46,7 @@
 	color: #999;
 }
 
-#tpDateBody > tr > td {
+.tpDateBody > tr > td {
 	font-size: 13px;
 	cursor: pointer;
 	text-align: center;
@@ -49,12 +56,12 @@
 	transition: all 0.2s ease-in-out;
 }
 
-#tpDateBody > tr > td:hover {
+.tpDateBody > tr > td:hover {
 	background: #00AEFF;
 	color: #fff;
 }
 
-#tpDate-SM {
+.tpDate-SM {
 	background: transparent;
 	border: none;
 	-webkit-appearance: none;
@@ -67,15 +74,15 @@
     color: #333;
 }
 
-#tpDate-SM::-ms-expand {
+.tpDate-SM::-ms-expand {
     display: none;
 }
 
-#tpDate-SM option {
+.tpDate-SM option {
 	font-size: 13px;
 }
 
-#tpDate-SY {
+.tpDate-SY {
 	background: transparent;
 	border: none;
 	-webkit-appearance: none;
@@ -88,14 +95,14 @@
     color: #555;
 }
 
-#tpDate-SY::-ms-expand {
+.tpDate-SY::-ms-expand {
     display: none;
 }
 
-#tpDate-SY option {
+.tpDate-SY option {
 	font-size: 13px;
 }
 
-#tpDateBody tr > td {
+.tpDateBody tr > td {
 	padding: 6px;
 }
