@@ -9,20 +9,9 @@ app.config(function($locationProvider, $routeProvider) {
     	view: 'tpl/'
     }
 
-    // Configuration of routes list
-    // And resolve function
-    // Version 1.5 Build 18
-    // onloadStyle => Load CSS files
-    // onloadAll => Language
-    // onloadLocation => Determine current location of accessing user
-    // onload[xxx] => Load page function controller before view loaded
+    // Route list
     $routeProvider
     .when('/', {
-    	templateUrl: path.view+'test.html',
-        resolve: {
-            onload: function() {
-                console.log(123)
-            }
-        }
-   	})
+    	templateUrl: path.view+'test.html'
+   	});
 });

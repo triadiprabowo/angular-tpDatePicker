@@ -32,8 +32,8 @@ var defaultTasks = [
 	'ngDateScripts',
 	'index_view',
 	'tpls',
-	'img',
-	//'css',
+	//'img',
+	'css',
 	'vServer',
 	'watch'
 ]
@@ -74,20 +74,20 @@ gulp.task('tpls', function(){
 });
 
 // Gulp task: Compiling images
-gulp.task('img', function(cb) {
-	return gulp.src(src_dev + 'res/img/*')
-	.pipe($.size({ title : 'images' }))
-	.pipe(gulp.dest(src_dist + 'img/'));
-});
+// gulp.task('img', function() {
+// 	return gulp.src(src_dev + 'img/*')
+// 	.pipe($.size({ title : 'images' }))
+// 	.pipe(gulp.dest(src_dist + 'img/'));
+// });
 
 // Gulp task: compiling CSS
-// gulp.task('css',function(cb) {
-// 	return gulp.src(src_dev + 'res/css/*.*')	
-// 	.pipe(env_process == 'release'? $.cssmin() : $.util.noop())
-// 	.pipe(gulp.dest(src_dist + 'css/'))
-// 	.pipe($.size({ title : 'css' }))
-// 	.pipe($.connect.reload());
-// });
+gulp.task('css',function() {
+	return gulp.src(src_dev + 'css/*.css')	
+	.pipe(env_process == 'release'? $.cssmin() : $.util.noop())
+	.pipe(gulp.dest(src_dist + 'css/'))
+	.pipe($.size({ title : 'css' }))
+	.pipe($.connect.reload());
+});
 
 // Gulp task creating virtual server using gulp-connect
 gulp.task('vServer', function() {
@@ -111,7 +111,8 @@ gulp.task('vServer', function() {
 gulp.task('watch', function() {
 	gulp.watch(src_dev + 'index.html', ['index_view']);
 	gulp.watch(src_dev + 'tpl/**/*.html', ['tpls']);
-	gulp.watch(src_dev + 'js/*.js');  
+	gulp.watch(src_dev + 'js/*.js', ['ngDateScripts']);
+	gulp.watch(src_dev + 'css/*.css', ['css']);
 });
 
 // Gulp task to clean build (fresh build)
@@ -119,11 +120,13 @@ gulp.task('clean', function(cb) {
 	del(src_dist, cb);
 });
 
-// Gulp task for defaultBuild
-gulp.task('compile', defaultTasks);
+// Gulp task for development
+gulp.task('development', defaultTasks)
 
 // Set default task
 gutil.log(gutil.colors.green('Running gulp=> '+appInfo.name+' version '+appInfo.version+ ' ['+env_process+']:'+virtual_port));
-	gulp.task('default', ['clean', 'compile'], function() {
-	gulp.start(env_process);
+
+// Start Default Task
+gulp.task('default', function() {
+	gulp.start('clean');
 });
