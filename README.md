@@ -8,13 +8,31 @@ Responsive DatePicker for AngularJS, this build adapt from tpScript datepicker m
 * Then add attribute in textbox or div/blocks section tp-date-picker
 * You may add options in attribute element check options list for more info
 
+```javascript
+	// Inject 'tpDatePicker' dependency to your angular module
+	angular.module('YOUR_APP', ['tpDatePicker']);
+
+	// You can use configuration through '$tpDatePicker' service and inject it to your controller dependency
+	angular.module('YOUR_APP', ['tpDatePicker'])
+	.controller('YOUR_CONTROLLER', function($tpDatePicker) {
+		$tpDatePicker.config({
+			dateFormat: 'DD-MM-YYYY',
+			holiday: true, //default: false
+			minYear: 1900, //default: 1900 *available next build*
+			maxYear: 2020, //default: current year *available next build*
+			region: 'EN' //default: 'EN' language will be english and holiday set to country of US
+		});
+	});
+```
+
+Or simply setup from your view:
+```html
+	<input type="text" tp-date-picker="{'format': 'DD-MM-YYYY', 'holiday': true, 'minYear': 1900, 'maxYear': 2020, 'region': 'EN'}" />
+```
+
 
 ### Options List
 - - - - - - - - - -
-```html
-	<input type="text" tp-date-picker="{'format': 'DD-MM-YYYY'}" />
-```
-
 ```
 format: date formatting
 holiday: default-> false (set true to add holiday) **
