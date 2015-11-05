@@ -3,7 +3,7 @@
 ** https://github.com/triadiprabowo/angular-tpDatePicker
 ** Developed by Triadi Prabowo (me@triadiprabowo.com)
 ** Licensed by MIT
-** Version 0.2-a5 pre-build
+** Version 0.3-b1 pre-testing
 */
 
 angular.module('ngDatePicker', [])
@@ -12,7 +12,8 @@ angular.module('ngDatePicker', [])
 		restrict: 'A',
 		link: function($scope, el, attr) {
 			$window.tpDatePicker = ({
-				activeIndex: 0
+				activeIndex: 0,
+				tpDateOptions: []
 			});
 
 			var options = {
@@ -45,6 +46,8 @@ angular.module('ngDatePicker', [])
 				for(var i=0; i < document.getElementsByClassName('tpDatePicker').length; i++) {
 					el.attr('index', i);					
 				}
+
+				el.addClass('__tpdatepicker__input');
 			}	
 
 			function renderCalendar() {
@@ -73,13 +76,13 @@ angular.module('ngDatePicker', [])
 
 					for(var i=0; i < limit; i++) {						
 						if(before != 0)	{
-							var pastdate = options.date.leap[options.current.month] + before++;
+							var pastdate = options.date.leap[options.current.month - 1] + before++;
 
 							if(i % 7 == 0) {
 								tpl += '</tr>'
 							}
 
-							tpl += '<td class=tpDate_pastDate>'+ pastdate +'</td>'
+							tpl += '<td class=tpDate_pastDate>'+ (parseInt(pastdate)+1) +'</td>'
 						}
 						else {
 							if(i % 7 == 0) {
@@ -106,13 +109,13 @@ angular.module('ngDatePicker', [])
 
 					for(var i=0; i < limit; i++) {						
 						if(before != 0)	{
-							var pastdate = options.date.common[options.current.month] + before++;
+							var pastdate = options.date.common[options.current.month - 1] + before++;
 
 							if(i % 7 == 0) {
 								tpl += '</tr>'
 							}
 
-							tpl += '<td class=tpDate_pastDate>'+ pastdate +'</td>'
+							tpl += '<td class=tpDate_pastDate>'+ (parseInt(pastdate)+1) +'</td>'
 						}
 						else {
 							if(i % 7 == 0) {
@@ -196,13 +199,13 @@ angular.module('ngDatePicker', [])
 
 					for(var i=0; i < limit; i++) {						
 						if(before != 0)	{
-							var pastdate = options.date.leap[m] + before++;
+							var pastdate = options.date.leap[m-1] + before++;
 							
 							if(i % 7 == 0) {
 								tpl += '</tr>'
 							}
 
-							tpl += '<td class=tpDate_pastDate>'+ pastdate +'</td>'
+							tpl += '<td class=tpDate_pastDate>'+ (parseInt(pastdate)+1) +'</td>'
 						}
 						else {
 							if(i % 7 == 0) {
@@ -229,13 +232,13 @@ angular.module('ngDatePicker', [])
 
 					for(var i=0; i < limit; i++) {						
 						if(before != 0)	{
-							var pastdate = options.date.common[m] + before++;
+							var pastdate = options.date.common[m-1] + before++;
 							
 							if(i % 7 == 0) {
 								tpl += '</tr>'
 							}
 
-							tpl += '<td class=tpDate_pastDate>'+ pastdate +'</td>'
+							tpl += '<td class=tpDate_pastDate>'+ (parseInt(pastdate)+1) +'</td>'
 						}
 						else {
 							if(i % 7 == 0) {
@@ -302,6 +305,10 @@ angular.module('ngDatePicker', [])
 				if(__selector.style.display != '') {
 					$rootScope.$broadcast('__tpdatepicker__ready');
 					e.stopPropagation();					
+				}				
+
+				for(var i=0; i < document.getElementsByClassName('__tpdatepicker__input').length; i++) {
+					$window.tpDatePicker.tpDateOptions.push($parse(document.getElementsByClassName('__tpdatepicker__input')[i].attributes['tp-date-picker'].nodeValue)())
 				}
 			});			
 
@@ -316,10 +323,47 @@ angular.module('ngDatePicker', [])
 				var __selectedMonth = parseInt(angular.element(document.querySelector('.tpDate-SM')).val()) + 1;
 				__selectedMonth  = __selectedMonth < 10? '0'+__selectedMonth : __selectedMonth;
 
+				var __selectedLongMonth = options.month.long[parseInt(__selectedMonth)-1];
+
 				var __selectedYear = parseInt(angular.element(document.querySelector('.tpDate-SY')).val());
 				__selectedYear = __selectedYear < 10? '0'+__selectedYear : __selectedYear;
+				
+				var __separator = $window.tpDatePicker.tpDateOptions[$window.tpDatePicker.activeIndex].format.replace(/[a-zA-Z]/g, '').substr(0,1);
+				var __tmp__dateFormat = $window.tpDatePicker.tpDateOptions[$window.tpDatePicker.activeIndex].format.replace(__separator, ' ').split(' ');
+				
+				if(__tmp__dateFormat.length != 3) {
+					for(var y=0; y < __tmp__dateFormat.length; y ++) {
+						var x = __tmp__dateFormat[y].replace(__separator, ' ').split(' ');
+					}
 
-				document.querySelector('.__tpdatepicker__active').value = __selectedDate+'-'+__selectedMonth+'-'+__selectedYear;
+					__tmp__dateFormat = [__tmp__dateFormat[0]];
+					
+					for(var t=0; t < x.length; t++) {
+						__tmp__dateFormat.push(x[t]);
+					}
+				}
+
+				if(__tmp__dateFormat.length == 3) {
+					for(var x=0; x < __tmp__dateFormat.length; x++) {
+						if(__tmp__dateFormat[x] == 'DD') {
+							__tmp__dateFormat[x] = __selectedDate;
+						}
+						else if(__tmp__dateFormat[x] == 'MM') {
+							__tmp__dateFormat[x] = __selectedMonth;
+						}
+						else if(__tmp__dateFormat[x] == 'M') {
+							__tmp__dateFormat[x] = __selectedLongMonth;
+						}
+						else if(__tmp__dateFormat[x] == 'YYYY') {
+							__tmp__dateFormat[x] = __selectedYear;
+						}
+					}
+
+					document.querySelector('.__tpdatepicker__active').value = __tmp__dateFormat.join(__separator);
+				}
+				else {
+					console.log("Unexpected error, format date is Invalid!");
+				}			
 
 				document.getElementsByClassName('__tpdatepicker__active')[0].nextElementSibling.style.display = '';
 				document.getElementsByClassName('__tpdatepicker__active')[0].className = ''
