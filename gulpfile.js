@@ -9,11 +9,11 @@ var gulp = require('gulp'),
 	$ = require('gulp-load-plugins')(),
 	gutil = require('gulp-util'),
 	del = require('del'),
-	env_process = 'release',
+	env_process = 'development',
 	appInfo = require('./package.json'),
 	virtual_port = 1337;
 
-if(env_process == 'development')
+if(env_process == 'release')
 	var env_set = $.util.env.type || 'development'
 else {
 	var env_set = $.util.env.type || 'release'
