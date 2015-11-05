@@ -30,19 +30,25 @@ var src_dist = './dist/',
 var defaultTasks = [
 	'app_scripts',
 	'ngDateScripts',
+	'ngDateScripts.min',
 	'index_view',
 	'tpls',
-	//'img',
 	'css',
+	'css.min',
 	'vServer',
 	'watch'
+]
+
+var releaseTasks = [
+	'ngDateScripts.min',
+	'css.min'
 ]
 
 // Gulp task: creating application required scripts
 gulp.task('app_scripts', function() {
 	return gulp.src(webconfig.entry)
 	.pipe($.webpack(webconfig))
-    .pipe(env_process == 'release'? $.uglify({mangle: false}) : $.util.noop())
+    .pipe($.util.noop())
     .pipe(gulp.dest(src_dist + 'js/'))
     .pipe($.size({ title : 'main.js' }))
     .pipe($.connect.reload());
@@ -51,8 +57,16 @@ gulp.task('app_scripts', function() {
 // Gulp task: creating application scripts (ngDatePicker)
 gulp.task('ngDateScripts', function() {
 	return gulp.src(src_dev + 'js/*.js')
-	.pipe(env_process == 'release'? $.uglify({mangle: false}) : $.util.noop())
+	.pipe($.util.noop())
     .pipe(gulp.dest(src_dist + 'js/'))
+    .pipe($.connect.reload());
+});
+
+gulp.task('ngDateScripts.min', function() {
+	return gulp.src(src_dev + 'js/tpDatePicker.js')
+	.pipe($.uglify({mangle: false}))
+	.pipe($.rename('tpDatePicker.min.js'))
+    .pipe(gulp.dest('./build/'))
     .pipe($.connect.reload());
 });
 
@@ -72,19 +86,19 @@ gulp.task('tpls', function(){
     .pipe($.connect.reload());
 });
 
-// Gulp task: Compiling images
-// gulp.task('img', function() {
-// 	return gulp.src(src_dev + 'img/*')
-// 	.pipe($.size({ title : 'images' }))
-// 	.pipe(gulp.dest(src_dist + 'img/'));
-// });
-
 // Gulp task: compiling CSS
 gulp.task('css',function() {
 	return gulp.src(src_dev + 'css/*.css')	
-	.pipe(env_process == 'release'? $.cssmin() : $.util.noop())
+	.pipe($.util.noop())
 	.pipe(gulp.dest(src_dist + 'css/'))
-	.pipe($.size({ title : 'css' }))
+	.pipe($.connect.reload());
+});
+
+gulp.task('css.min', function() {
+	return gulp.src(src_dev+'css/tpDatePicker.css')
+	.pipe($.cssmin())
+	.pipe($.rename('tpDatePicker.min.css'))
+	.pipe(gulp.dest('./build/'))
 	.pipe($.connect.reload());
 });
 
@@ -116,11 +130,15 @@ gulp.task('watch', function() {
 
 // Gulp task to clean build (fresh build)
 gulp.task('clean', function(cb) {
+	del('./build/', cb);
 	del(src_dist, cb);
 });
 
 // Gulp task for development
 gulp.task('development', defaultTasks)
+
+// Gulp task for releasing
+gulp.task('release', releaseTasks);
 
 // Set default task
 gutil.log(gutil.colors.green('Running gulp=> '+appInfo.name+' version '+appInfo.version+ ' ['+env_process+']:'+virtual_port));
