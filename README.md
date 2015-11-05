@@ -4,11 +4,10 @@ Responsive DatePicker for AngularJS, this build adapt from tpScript datepicker m
 
 ### Usage
 - - - - - - - -
-```
-Copy ngDatePicker required script you can check minify version or normal one in dist build
-Then add attribute in textbox or div/blocks section tp-date-picker
-You may add options in attribute element check options list for more info
-```
+* Copy ngDatePicker required script you can check minify version or normal one in dist build
+* Then add attribute in textbox or div/blocks section tp-date-picker
+* You may add options in attribute element check options list for more info
+
 
 ### Options List
 - - - - - - - - - -
@@ -23,8 +22,10 @@ maxYear: set max year **
 minYear: set min year **
 
 Allowed Format:
-* DD-MM-YYYY (e.g. 01-01-2015)
-* DD M YYYY (e.g. 01 January 2015) **
+* DD -> Print date from 01 through 31
+* MM -> Print month from 01 through 12
+* M -> Print month from January through December
+* YYYY -> Print year from 1900 to current date
 
 ```
 
@@ -33,6 +34,13 @@ NB:
 
 ### Changelogs
 - - - - - - - - - -
+##### Version 0.3-b1: 
+* Fix bug->calendar pastdate now shown correctly because of miscalculation
+* Fix bug->format date of undefined, if user used on multiple elements format will be replaced by last
+* Add new date format ISO 8601 format
+* Add new global vars to $window.tpDatePicker
+* Fix date calculation of leap year
+
 ##### Version 0.2-a5:
 * Fix bug->calendar not closing after picked date
 * Fix bug->value of undefined after selecting date because of 'for' loop bad args
