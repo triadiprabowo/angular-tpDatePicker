@@ -1,6 +1,6 @@
 ### tpDatePicker for AngularJS
 - - - - - - - - - - - -
-Responsive DatePicker for AngularJS, this build adapt from tpScript datepicker module for jQuery, you can see the project in my repos.
+Responsive DatePicker for AngularJS, this build adapt from tpScript datepicker module for jQuery, you can see the project in my repos. Also, you can try the [DEMO](http://triadiprabowo.github.io/angular-tpDatePicker/) here.
 
 ### Usage
 - - - - - - - -
