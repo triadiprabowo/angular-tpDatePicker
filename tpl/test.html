@@ -8,6 +8,95 @@
 
 		<input type="text" tp-date-picker="{'format': 'DD M YYYY'}" placeholder="Select date..." />
 
+		<h4>tpDatePicker for AngularJS</h4>
+		<hr>
+		<p>Responsive DatePicker for AngularJS, this build adapt from tpScript datepicker module for jQuery, you can see the project in my repos.</p>
+
+		<h4>Usage</h4>
+		<hr>
+		* Copy ngDatePicker required script you can check minify version or normal one in dist build<br />
+		* Then add attribute in textbox or div/blocks section tp-date-picker<br />
+		* You may add options in attribute element check options list for more info<br />
+
+		<code>
+			// Inject 'tpDatePicker' dependency to your angular module
+			angular.module('YOUR_APP', ['tpDatePicker']);
+
+			// You can use configuration through '$tpDatePicker' service and inject it to your controller dependency
+			angular.module('YOUR_APP', ['tpDatePicker'])
+			.controller('YOUR_CONTROLLER', function($tpDatePicker) {
+				$tpDatePicker.config({
+					dateFormat: 'DD-MM-YYYY',
+					holiday: true, //default: false
+					minYear: 1900, //default: 1900 *available next build*
+					maxYear: 2020, //default: current year *available next build*
+					region: 'EN' //default: 'EN' language will be english and holiday set to country of US
+				});
+			});
+		</code>
+
+		<p>Or simply setup from your view:?</p>
+		<code>
+			<input type="text" tp-date-picker="{'format': 'DD-MM-YYYY', 'holiday': true, 'minYear': 1900, 'maxYear': 2020, 'region': 'EN'}" />
+		</code>
+
+
+		<h4>Options List</h4>
+		<hr>
+		<code>
+		format: date formatting
+		holiday: default-> false (set true to add holiday) **
+		maxYear: set max year **
+		minYear: set min year **
+
+		Allowed Format:
+		* DD -> Print date from 01 through 31
+		* MM -> Print month from 01 through 12
+		* M -> Print month from January through December
+		* YYYY -> Print year from 1900 to current date
+
+		</code>
+
+		<b>NB:</b><br />
+		<i>** = Next build</i><br />
+
+		<h4>Changelogs</h4>
+		<hr>
+		<h5>Version 0.3-b1:</h5>
+		<p>* Fix bug->calendar pastdate now shown correctly because of miscalculation</p>
+		<p>* Fix bug->format date of undefined, if user used on multiple elements format will be replaced by last</p>
+		<p>* Add new date format ISO 8601 format</p>
+		<p>* Add new global vars to $window.tpDatePicker</p>
+		<p>* Fix date calculation of leap year</p><br />
+
+		<h5>Version 0.2-a5:</h5>
+		<p>* Fix bug->calendar not closing after picked date</p>
+		<p>* Fix bug->value of undefined after selecting date because of 'for' loop bad args</p>
+		<p>* Fix bug->current year default index after first-child of element (e.g. child(0) == 2015 child(1) == 2014)</p>
+		<p>* Add function __setElementIndex and used window variable instead of $rootScope</p>
+		<p>* Remove $rootScope.__tpDateIndex -> window.tpDatePicker.activeIndex</p><br />
+
+		<h5>Version 0.2-a1-a4:</h5>
+		<p>* Add CSS styling for Calendar to make it look prettier</p>
+		<p>* Add animation hover when selecting date</p>
+		<p>* Optimize angularJS dependency, global vars with using $rootScope changed into window vars</p>
+		<p>* Updated IDs to classes, so it can be use for multiple elements</p><br />
+
+		<h5>Version 0.1-initial:</h5>
+		<p>* Initial Build (Single element using IDs)</p>
+
+		<h4>Development Usage</h4>
+		<hr>
+		<p>* Make sure you already install NodeJS in your computer system</p>
+		<p>* Run npm install - command</p>
+		<p>* Then run gulp (default) to clean distribution folder</p>
+		<p>* Next, run gulp development or gulp release</p>
+
+		<hr>
+		<h5>Copyrights</h5>
+		<p>*Copyright 2015 to Triadi Prabowo, triadiprabowo.com / triadiprabowo@gmail.com*
+
+
       </section>
     </div>
 
