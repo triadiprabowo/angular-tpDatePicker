@@ -76,7 +76,12 @@ angular.module('ngDatePicker', [])
 
 					for(var i=0; i < limit; i++) {						
 						if(before != 0)	{
-							var pastdate = options.date.leap[options.current.month - 1] + before++;
+							if(options.current.month != 0) {
+								var pastdate = options.date.leap[options.current.month - 1] + before++;
+							}
+							else {
+								var pastdate = 31 + before++;
+							}
 
 							if(i % 7 == 0) {
 								tpl += '</tr>'
@@ -109,7 +114,12 @@ angular.module('ngDatePicker', [])
 
 					for(var i=0; i < limit; i++) {						
 						if(before != 0)	{
-							var pastdate = options.date.common[options.current.month - 1] + before++;
+							if(options.current.month != 0) {
+								var pastdate = options.date.leap[options.current.month - 1] + before++;
+							}
+							else {
+								var pastdate = 31 + before++;
+							}
 
 							if(i % 7 == 0) {
 								tpl += '</tr>'
@@ -183,7 +193,7 @@ angular.module('ngDatePicker', [])
 			** OnChange of Selector **
 			*************************/
 			function __CAL_QUERY(y,m) {				
-				var firstday = new Date(y, m, 1).getDay();
+				var firstday = new Date(y, m, 1).getDay();				
 				var tpl = '';
 				options.startday = 1;
 
@@ -198,8 +208,13 @@ angular.module('ngDatePicker', [])
 					}							
 
 					for(var i=0; i < limit; i++) {						
-						if(before != 0)	{
-							var pastdate = options.date.leap[m-1] + before++;
+						if(before != 0)	{				
+							if(m != 0) {
+								var pastdate = options.date.leap[m-1] + before++;	
+							}
+							else {
+								var pastdate = 31 + before++;
+							}
 							
 							if(i % 7 == 0) {
 								tpl += '</tr>'
@@ -232,7 +247,12 @@ angular.module('ngDatePicker', [])
 
 					for(var i=0; i < limit; i++) {						
 						if(before != 0)	{
-							var pastdate = options.date.common[m-1] + before++;
+							if(m != 0) {
+								var pastdate = options.date.leap[m-1] + before++;	
+							}
+							else {
+								var pastdate = 31 + before++;
+							}
 							
 							if(i % 7 == 0) {
 								tpl += '</tr>'
